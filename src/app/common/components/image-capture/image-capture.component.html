@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Install Angular</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Develop across all platforms</h3>
+  <div class="flex flex-col justify-center items-center">
+    <ng-container [ngSwitch]="step">
+      <ng-container *ngSwitchCase="1">
+        <button
+          class="flex-grow-0 border-x-2 border-y-2 m-5 px-12 py-2 bg-slate-300"
+          (click)="startCamera()"
+        >
+          Start Camera
+        </button>
+      </ng-container>
+      <ng-container *ngSwitchCase="2">
+        <video #video width="320" height="240" autoplay></video>
+        <button
+          class="border-x-2 border-y-2 m-5 px-12 py-2 bg-slate-300"
+          (click)="takeImage()"
+        >
+          Click Photo
+        </button>
+        <canvas hidden #canvas width="320" height="240"></canvas>
+      </ng-container>
+      <ng-container *ngSwitchCase="3">
+        <canvas #canvas2 width="320" height="240"></canvas>
+        <button
+          class="border-x-2 border-y-2 m-5 px-12 py-2 bg-slate-300"
+          (click)="startCamera()"
+        >
+          Click Again
+        </button>
+        <button
+          class="border-x-2 border-y-2 m-5 px-12 py-2 bg-slate-300"
+          (click)="uploadImage()"
+        >
+          Use this Image
+        </button>
+      </ng-container>
+    </ng-container>
+  </div>  
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+</mat-dialog-actions>
+
