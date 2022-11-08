@@ -8,20 +8,25 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 export class ImageCaptureComponent implements OnInit {
  @ViewChild('video') video?: ElementRef<HTMLVideoElement>;
  @ViewChild('canvas') canvas?: ElementRef<HTMLCanvasElement>;
- @ViewChild('canvas2') canvas2?: ElementRef<HTMLCanvasElement>;
- step = 1; 
- constructor() { }
+ step = 1;
+ imageData: any; 
+
+ scanning = false;
 
   ngOnInit(): void {
+    this.startCamera();
   }
 
   startCamera() {
     this.step = 2;
+    let stream;
     setTimeout(async () => {
       if(!this.video?.nativeElement) return;
-      let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+      stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
       this.video.nativeElement.srcObject = stream;
     }, 0);
+
+    
     
   }
 
@@ -37,20 +42,25 @@ export class ImageCaptureComponent implements OnInit {
     const canvas = this.canvas.nativeElement;
     
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
-   	let sourceImageData = canvas.toDataURL('image/jpeg');
-
-    setTimeout(() => {
-      const ctx = this.canvas2?.nativeElement.getContext("2d");
-
-      var destinationImage = new Image;
-      destinationImage.onload = function(){
-      ctx?.drawImage(destinationImage,0,0);
-    };
-    destinationImage.src = sourceImageData;
+   	//this.imageData = canvas.toDataURL('image/jpeg');
     
-    }, 0);
+
+     canvas.toBlob((blob) => {
+      const newImg = document.createElement('img');
+      const url = URL.createObjectURL(blob!);
+    
+      const formdata = new FormData();
+      formdata.append("file", blob!);
+      console.log(formdata);
+      newImg.onload = () => {
+        URL.revokeObjectURL(url);
+      };
+    
+      newImg.src = url;
+      document.body.appendChild(newImg);
+    });
+
+    this.scanning = true;
+  
   }
-
-  uploadImage() {}
-
 }

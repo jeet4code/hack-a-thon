@@ -1,2 +1,19 @@
-<p>user-info works!</p>
-<button (click)="openImageCaptureDialog()" >Capture Image</button>
+<div class="flex flex-row gap-4 m-4" >
+    <div class="w-40 flex border-2 h-60 flex-col" >
+        <img  [src]="imageData" />
+        <button class="border-2" (click)="openImageCaptureDialog()">Capture Image</button>
+    </div>
+    
+    <form class="flex flex-col gap-5 flex-grow" [formGroup]="userInfoForm" (ngSubmit)="onSubmit()">
+      <div class="flex flex-row gap-4">
+        <label class="w-1/4 text-right" for="name">Name</label>
+        <input class="w-1/4 border-2" id="name" type="text" formControlName="name" />
+      </div>
+    
+      <div class="flex flex-row gap-4">
+        <label class="w-1/4 text-right" for="gender">Gender</label>
+        <input class="w-1/4 border-2"  id="gender" type="text" formControlName="gender" />
+      </div> 
+      <button class="border-2 self-center px-6 py-2" type="submit">Process</button>
+    </form>
+</div>

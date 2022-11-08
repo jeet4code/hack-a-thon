@@ -3,30 +3,31 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ImageCaptureComponent } from './common/components/image-capture/image-capture.component';
 import { ImageProcessComponent } from './common/components/image-process/image-process.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { UserInfoComponent } from './common/components/user-info/user-info.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
-import {MatDialogModule} from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ImageCaptureComponent } from './common/components/image-capture/image-capture.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ImageCaptureComponent,
     ImageProcessComponent,
+    LandingPageComponent,
     ProductsComponent,
     UserInfoComponent,
-    LandingPageComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
-    MatDialogModule,
     BrowserAnimationsModule,
+    BrowserModule,
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
